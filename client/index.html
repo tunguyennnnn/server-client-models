@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Client App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="client.css">
+      <script
+        type="text/javascript"
+        src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+      </script>
+      <link rel="stylesheet" href="jquery-ui.min.css">
+      <link rel="stylesheet" href="selectize.css">
+      <link rel="stylesheet" href="selectize.default.css">
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="jquery.js"></script>
+      <script src="jquery-ui.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script src="thrift.js"></script>
+      <script src="protobuf.min.js"></script>
+      <script src="selectize.js"></script>
+      <script src="client.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Button trigger modal -->
+      <button id="start-game-json" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Run Json
+      </button>
+      <button id="start-game-thrift" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Run Thrift
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Select Question</h4>
+            </div>
+            <div class="modal-body">
+              <div id="question-list">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

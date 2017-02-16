@@ -1,0 +1,17 @@
+{
+  "root": ["Where does it live?", "sea", "land"],
+  "sea" : [ "Is it big?", "yes-big", "no-big"],
+  "land" : ["Is is a carnivore?", "yes-carnivore", "no-carnivore"],
+  "yes-big" : ["Have it attacked human?", "yes-attack-human", "no-attack-human"],
+  "yes-attack-human" :  "Shark",
+  "no-attack-human" : "Dophin",
+  "no-big" : ["Is is venomous?", "yes-venomous", "no-venomous"],
+  "yes-venomous" : "Stonefish",
+  "no-venomous" : "Lobster",
+  "yes-carnivore" : ["Does it hunt in group?", "yes-hunt-group", "no-hunt-group"],
+  "yes-hunt-group" : "Lion",
+  "no-hunt-group" : "Cheetah",
+  "no-carnivore" : ["Can it climb tree?", "yes-climb-tree", "no-climb-tree"],
+  "yes-climb-tree" : "Monkey",
+  "no-climb-tree" : "Elephant"
+}

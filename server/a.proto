@@ -1,0 +1,10 @@
+package questionanswer;
+
+message QuestionAnswer{
+  optional string question = 1;
+  optional string answer1 = 2;
+  optional string answer2 = 3;
+  optional QuestionAnswer next_q1 = 4;
+  optional QuestionAnswer next_q2 = 5;
+  optional string animal = 6;
+}
