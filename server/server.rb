@@ -1,4 +1,3 @@
-require 'thrift-base64'
 require 'webrick'
 require 'json'
 require 'protocol_buffers'
@@ -32,17 +31,42 @@ class AnimalGuessingServerProtocolBuf < AnimalGuessingServer
   def read_json_f(file_name)
     file = File.read(file_name)
     json_data = JSON.parse(file)
-    x = build_struct(json_data, "root")
     build_struct(json_data, "root").serialize_to_string.bytes.to_s
   end
 
   def build_struct(json, node)
     answer = json[node]
-    if answer.class == String
+    if answer.kind_of? String
       QuestionAnswer.new(animal: answer)
     else
       question, answer1, answer2  = answer
       QuestionAnswer.new(question: question, answer1: answer1, answer2: answer2 , next_q1: build_struct(json, answer1), next_q2: build_struct(json, answer2))
+    end
+  end
+end
+
+class AnimalGuessingServerMulti < AnimalGuessingServer
+
+  def do_POST(request, response)
+    file = File.read('server/model.json')
+    json_data = JSON.parse(file)
+    response["content-type"] = "text/html"
+    response.body = build_single_struct(json_data, request.query["answer"]).serialize_to_string.bytes.to_s
+  end
+
+  def read_json_f(file_name)
+    file = File.read(file_name)
+    json_data = JSON.parse(file)
+    build_single_struct(json_data, "root").serialize_to_string.bytes.to_s
+  end
+
+  def build_single_struct(json_data, node)
+    answer = json_data[node]
+    if answer.kind_of? String
+      QuestionAnswer.new(animal: answer)
+    else
+      question, answer1, answer2  = answer
+      QuestionAnswer.new(question: question, answer1: answer1, answer2: answer2)
     end
   end
 end
@@ -61,4 +85,5 @@ end
 start_webrick ({DocumentRoot: 'client'}){ |server|
   server.mount '/animal_guessing_json', AnimalGuessingServerJson
   server.mount '/animal_guessing_pb', AnimalGuessingServerProtocolBuf
+  server.mount '/animal_guessing_multi', AnimalGuessingServerMulti
 }

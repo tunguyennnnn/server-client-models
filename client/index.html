@@ -29,12 +29,62 @@
   </head>
   <body>
     <div class="container">
+      <div class="alert alert-info" role="alert">Memorize an animal and select the type of serialization</div>
+      <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-4 col-md-3">
+            <a href="" class="thumbnail">
+              <img src="https://yt3.ggpht.com/-_IXzYFNWU8U/AAAAAAAAAAI/AAAAAAAAAAA/6tXWVmD0E64/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" alt="...">
+            </a>
+          </div>
+          <div class="col-xs-4 col-md-3">
+            <a href="" class="thumbnail">
+              <img src="http://www.factslides.com/imgs/shark-blood.jpg" alt="...">
+            </a>
+          </div>
+          <div class="col-xs-4 col-md-3">
+            <a href="" class="thumbnail">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Cheetah_portrait_Whipsnade_Zoo.jpg" alt="...">
+            </a>
+          </div>
+          <div class="col-xs-4 col-md-3">
+            <a href="" class="thumbnail">
+              <img src="http://media1.santabanta.com/full1/Animals/Elephants/elephants-9a.jpg" alt="...">
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-4 col-md-3">
+            <a href="" class="thumbnail">
+              <img src="http://freedesignfile.com/upload/2016/04/Golden-lion-vector.jpg" alt="...">
+            </a>
+          </div>
+          <div class="col-xs-4 col-md-3">
+            <a href="" class="thumbnail">
+              <img src="http://www.oceanwideimages.com/images/16838/large/false-stonefish-24M1066-89D.jpg" alt="...">
+            </a>
+          </div>
+          <div class="col-xs-4 col-md-3">
+            <a href="" class="thumbnail">
+              <img src="http://morefundiving.com/wp-content/uploads/2015/12/20150505-_DSC2216.jpg" alt="...">
+            </a>
+          </div>
+          <div class="col-xs-4 col-md-3">
+            <a href="" class="thumbnail">
+              <img src="https://s-media-cache-ak0.pinimg.com/originals/a2/36/b5/a236b548637a9758bf8eb8fe666cc33a.jpg" alt="...">
+            </a>
+          </div>
+        </div>
+      </div>
       <!-- Button trigger modal -->
       <button id="start-game-json" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
         Run Json
       </button>
-      <button id="start-game-thrift" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-        Run Thrift
+      <button id="start-game-protobuf" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Run Protocol buffer
+      </button>
+      <button id="start-game-multi-request" type"button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Run multiple request protocol buffer
       </button>
       <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -42,10 +92,12 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Select Question</h4>
+              <div class="modal-title alert alert-success" id="myModalLabel" role="alert">Select Question</div>
             </div>
             <div class="modal-body">
               <div id="question-list">
+              </div>
+              <div id="data-logging">
               </div>
             </div>
             <div class="modal-footer">

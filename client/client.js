@@ -5,12 +5,10 @@ function startClient(){
     maxItems: 1,
     valueField: 'id',
     labelField: 'name',
-    onItemAdd: function(value, $item){
-
-    }
   });
   var $questionField = $('#myModalLabel');
   var selectize = $select[0].selectize;
+  var $logger = $('#data-logging');
 
   // Node
   var node;
@@ -45,15 +43,17 @@ function startClient(){
   }
 
   function progress(){
-    console.log(333);
+    console.log("Request is on progress");
   }
 
   function finished(data, time){
+    $logger.text("Sent data is:\n" + data);
     console.log((new Date().getTime()) - time)
     compilingNW("root", JSON.parse(data))();
   }
 
   function finishedPb(data, time){
+    $logger.text("Sent data is:\n" + data);
     console.log((new Date().getTime()) - time)
     protobuf.load('a.proto', function(err, root){
       data = new Uint8Array(data.replace("[", "").replace("]", "").split(","));
@@ -92,12 +92,40 @@ function startClient(){
     }
   }
 
-  $('#start-game-thrift').on('click', function(){
-    createRequest(window.location.href + 'animal_guessing_pb', progress, finishedPb)
+  function finishedML(data, time){
+    console.log(data);
+    console.log((new Date().getTime()) - time);
+    protobuf.load('a.proto', function(err, root){
+      data = new Uint8Array(data.replace("[", "").replace("]", "").split(","));
+      var QuestionAnswer = root.lookup('questionanswer.QuestionAnswer');
+      var questionAnswer = QuestionAnswer.decode(data);
+      if (questionAnswer.question !== ""){
+        $questionField.text(questionAnswer.question);
+        selectize.clearOptions();
+        selectize.addOption({id: questionAnswer.answer1, name: questionAnswer.answer1.split("-")[0]});
+        selectize.addOption({id: questionAnswer.answer2, name: questionAnswer.answer2.split("-")[0]});
+        selectize.off('item_add');
+        selectize.on('item_add', function(value, $item){
+          post(window.location.href + 'animal_guessing_multi', {"answer": value}, finishedML);
+        });
+      }
+      else{
+        $questionField.text(questionAnswer.animal);
+        selectize.clearOptions();
+      }
+    });
+  }
+
+  $('#start-game-protobuf').on('click', function(){
+    createRequest(window.location.href + 'animal_guessing_pb', progress, finishedPb);
   })
   $('#start-game-json').on('click', function(){
-    createRequest(window.location.href + 'animal_guessing_json', progress, finished)
+    createRequest(window.location.href + 'animal_guessing_json', progress, finished);
   });
+
+  $('#start-game-multi-request').on('click', function(){
+    createRequest(window.location.href + 'animal_guessing_multi', progress, finishedML);
+  })
 }
 
 function createRequest(url, progress, finished){
@@ -117,4 +145,17 @@ function createRequest(url, progress, finished){
   }
   xhr.send(null);
   return xhr;
+}
+
+
+function post(url, message, callback){
+  $.ajax({
+    url: url,
+    type: 'POST',
+    data: message,
+    success: function(data){
+      console.log(data);
+      callback(data);
+    }
+  })
 }
