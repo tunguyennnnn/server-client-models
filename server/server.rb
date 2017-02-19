@@ -73,7 +73,7 @@ end
 
 
 def start_webrick(config = {})
-  config.update(:Port => 12346)
+  config.update(:Port => ENV['PORT'] || 3000)
   server = WEBrick::HTTPServer.new(config)
   yield server if block_given?
   ['INT', 'TERM'].each {|signal|
