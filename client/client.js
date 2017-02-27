@@ -47,13 +47,12 @@ function startClient(){
   }
 
   function finished(data, time){
-    $logger.text("Sent data is:\n" + data);
+    console.log(JSON.parse(data));
     console.log((new Date().getTime()) - time)
     compilingNW("root", JSON.parse(data))();
   }
 
   function finishedPb(data, time){
-    $logger.text("Sent data is:\n" + data);
     console.log((new Date().getTime()) - time)
     protobuf.load('a.proto', function(err, root){
       data = new Uint8Array(data.replace("[", "").replace("]", "").split(","));
@@ -99,6 +98,7 @@ function startClient(){
       data = new Uint8Array(data.replace("[", "").replace("]", "").split(","));
       var QuestionAnswer = root.lookup('questionanswer.QuestionAnswer');
       var questionAnswer = QuestionAnswer.decode(data);
+      console.log(questionAnswer);
       if (questionAnswer.question !== ""){
         $questionField.text(questionAnswer.question);
         selectize.clearOptions();
